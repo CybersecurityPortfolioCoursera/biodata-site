@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Shaurya Tiwari | BCA Student & Cybersecurity Enthusiast</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            color: #e8e6e1;
+            line-height: 1.5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated gradient background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 40%, #141412, #030303);
+            z-index: -2;
+        }
+
+        .animated-bg::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at center, rgba(230, 220, 200, 0.04), transparent 65%);
+            animation: slowDrift 22s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes slowDrift {
+            0% { transform: translate(0%, 0%) scale(1); opacity: 0.2; }
+            100% { transform: translate(6%, 4%) scale(1.15); opacity: 0.45; }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== GLASS NAVIGATION WITH GLOW EFFECT ===== */
+        .glass-nav {
+            background: rgba(18, 18, 16, 0.85);
+            backdrop-filter: blur(14px);
+            border-radius: 80px;
+            padding: 0.9rem 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(230, 220, 200, 0.2);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            color: #c8c4ba;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.55rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid transparent;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-item:hover {
+            color: #f2ede0;
+            background: rgba(245, 240, 225, 0.1);
+            border-color: rgba(230, 220, 200, 0.4);
+        }
+
+        /* Active nav item - GLOWING EFFECT */
+        .nav-item.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, rgba(220, 210, 185, 0.3), rgba(200, 190, 165, 0.4));
+            border-color: #e8ddc5;
+            box-shadow: 0 0 20px rgba(230, 220, 200, 0.5), 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 8px rgba(255, 250, 240, 0.8);
+        }
+
+        /* ===== FULL WIDTH ROW SECTIONS ===== */
+        .section-row {
+            margin-bottom: 3.5rem;
+            scroll-margin-top: 100px; /* Important: prevents section from being hidden under sticky nav */
+        }
+
+        .section-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Glass Card - Full width */
+        .glass-card {
+            background: rgba(18, 18, 16, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            border: 1px solid rgba(230, 220, 200, 0.18);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            padding: 2rem 2rem;
+            width: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(245, 235, 210, 0.35);
+            box-shadow: 0 28px 40px -14px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Sequential Reveal Animation */
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.65s ease-out;
+            will-change: transform, opacity;
+            filter: blur(3px);
+        }
+
+        .reveal-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* Profile Section - Center aligned */
+        .profile-card {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2.5px solid #e0d6c0;
+            box-shadow: 0 0 22px rgba(225, 215, 185, 0.25);
+            transition: 0.3s;
+            object-fit: cover;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 32px rgba(240, 230, 200, 0.4);
+        }
+
+        .glow-text {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin: 1rem 0 0.3rem;
+            background: linear-gradient(135deg, #ffffff, #e2d8c0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .highlight-title {
+            font-size: 1.2rem;
+            color: #cfc6aa;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+
+        .short-bio {
+            max-width: 550px;
+            margin: 0 auto 1.4rem;
+            opacity: 0.85;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s;
+            cursor: pointer;
+            border: 1px solid rgba(230, 220, 200, 0.35);
+            background: rgba(0, 0, 0, 0.55);
+            color: #ece8df;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(220, 210, 185, 0.18), rgba(190, 180, 155, 0.28));
+            border-color: #cfc5a8;
+        }
+
+        .btn-primary:hover, .btn-outline:hover {
+            transform: translateY(-3px);
+            background: rgba(230, 220, 200, 0.28);
+            border-color: #e8ddc5;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #faf7f0, #cfc5a8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* Two column inner layout */
+        .two-col-inner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 1.3rem;
+            padding-left: 0.8rem;
+            border-left: 2px solid #cfc5a8;
+        }
+
+        .year {
+            font-size: 0.8rem;
+            color: #b8ae92;
+            margin-bottom: 0.2rem;
+        }
+
+        .skill-badge {
+            background: rgba(220, 210, 185, 0.1);
+            border: 1px solid rgba(220, 210, 185, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.2s;
+            color: #e0dcd0;
+            display: inline-block;
+            margin: 0.25rem;
+        }
+
+        .skill-badge:hover {
+            background: rgba(220, 210, 185, 0.2);
+            transform: translateY(-2px);
+            border-color: #e0d4b8;
+            color: white;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .mini-badge {
+            background: rgba(200, 190, 165, 0.12);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        .cert-badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.2rem;
+        }
+
+        .project-card {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 1.2rem;
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            color: #cfc5a8;
+        }
+
+        .achievement-list div {
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed rgba(220, 210, 185, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .achievement-list i {
+            width: 28px;
+            color: #cfc5a8;
+        }
+
+        .contact-card {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .contact-info a, .contact-info span {
+            color: #c8bea0;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .contact-info a:hover, .contact-info span:hover {
+            color: #f0e8da;
+            text-shadow: 0 0 5px rgba(240, 235, 220, 0.5);
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.65;
+        }
+
+        /* Blurred background bars */
+        .blur-bar-row {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: rgba(20, 20, 20, 0.25);
+            backdrop-filter: blur(18px);
+            pointer-events: none;
+            z-index: 1;
+            border-top: 1px solid rgba(230, 220, 200, 0.1);
+            border-bottom: 1px solid rgba(230, 220, 200, 0.1);
+        }
+
+        .bar-1 { top: 15%; }
+        .bar-2 { top: 45%; }
+        .bar-3 { top: 75%; }
+
+        .file-status {
+            font-size: 0.7rem;
+            margin-top: 0.8rem;
+            color: #8a8678;
+        }
+
+        @media (max-width: 800px) {
+            .blur-bar-row { height: 80px; opacity: 0.5; }
+            .bar-1 { top: 20%; }
+            .bar-2 { top: 50%; }
+            .bar-3 { top: 80%; }
+            .section-row {
+                scroll-margin-top: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .glass-card { padding: 1.3rem; }
+            .glow-text { font-size: 1.8rem; }
+            .nav-links { gap: 0.7rem; }
+            .nav-item { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+            .section-row { margin-bottom: 2rem; scroll-margin-top: 80px; }
+            .two-col-inner { gap: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="animated-bg"></div>
+<div class="blur-bar-row bar-1"></div>
+<div class="blur-bar-row bar-2"></div>
+<div class="blur-bar-row bar-3"></div>
+
+<div class="container">
+    <!-- Glass Navigation with Glowing Active State -->
+    <nav class="glass-nav">
+        <div class="nav-links">
+            <span class="nav-item" data-section="home">⌂ Home</span>
+            <span class="nav-item" data-section="about">⨀ About & Education</span>
+            <span class="nav-item" data-section="experience">⚡ Experience</span>
+            <span class="nav-item" data-section="skills">⟡ Skills</span>
+            <span class="nav-item" data-section="projects">⌗ Projects</span>
+            <span class="nav-item" data-section="achievements">🏆 Achievements</span>
+            <span class="nav-item" data-section="contact">✉ Contact</span>
+        </div>
+    </nav>
+
+    <!-- ========== ROW 1: PROFILE SECTION ========= -->
+    <div id="home" class="section-row">
+        <div class="glass-card profile-card reveal-card" data-reveal>
+            <div class="profile-wrapper">
+                <div class="avatar-container">
+                    <!-- LOCAL IMAGE: ./image/my.png -->
+                    <img src="./image/my.png" 
+                         alt="Shaurya Tiwari" 
+                         class="profile-img"
+                         onerror="this.src='https://ui-avatars.com/api/?background=1a1a1a&color=e0d6c0&rounded=true&size=150&fontsize=0.65&bold=true&name=Shaurya+Tiwari'">
+                </div>
+                <h1 class="glow-text">Shaurya Tiwari</h1>
+                <p class="highlight-title">BCA Student | Cybersecurity Enthusiast</p>
+                <p class="short-bio">Passionate about cybersecurity, RDBMS, and tech innovation. Building real-world solutions with Python & security frameworks.</p>
+                <div class="btn-group">
+                    <button id="downloadResumeBtn" class="btn btn-primary"><i class="fas fa-download"></i> Download Resume</button>
+                    <span class="btn btn-outline" data-section="contact"><i class="fas fa-paper-plane"></i> Connect</span>
+                </div>
+                <div class="file-status" id="resumeStatus"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 2: ABOUT + EDUCATION ========= -->
+    <div id="about" class="section-row">
+        <div class="glass-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-user-astronaut"></i> About & Education</h2>
+            <div class="two-col-inner">
+                <div>
+                    <p style="margin-bottom: 1rem;">BCA student with deep interest in computer applications, cybersecurity & RDBMS. Currently gaining hands-on experience with <strong>Python</strong> and database systems. Certified in Google Cybersecurity & Risk Management. Eager to apply knowledge in real-world tech teams.</p>
+                    <div class="cert-badge-grid">
+                        <span class="mini-badge"><i class="fas fa-shield-alt"></i> Cybersecurity</span>
+                        <span class="mini-badge"><i class="fas fa-database"></i> RDBMS</span>
+                        <span class="mini-badge"><i class="fab fa-python"></i> Python</span>
+                        <span class="mini-badge"><i class="fas fa-chart-line"></i> Product Management</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="timeline-item">
+                        <div class="year"><i class="far fa-calendar-alt"></i> 2023 – 2026</div>
+                        <h3>Bachelor of Computer Applications (BCA)</h3>
+                        <p>Presidency University, Bengaluru | Expected: July 2026</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="year"><i class="far fa-calendar-alt"></i> 2022 – 2023</div>
+                        <h3>Higher Secondary School (Science)</h3>
+                        <p>Harsha International Public School, Bengaluru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 3: EXPERIENCE ========= -->
+    <div id="experience" class="section-row">
+        <div class="glass-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+            <div class="timeline-item">
+                <div class="year"><i class="fas fa-calendar-week"></i> 2024</div>
+                <h3>Internship Program Associate</h3>
+                <p>Plentra Technologies Pvt. Ltd. — Supported mobilization & recruitment, contributed to onboarding <strong>200+ interns</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 4: SKILLS ========= -->
+    <div id="skills" class="section-row">
+        <div class="glass-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-code"></i> Core Skills</h2>
+            <div class="skills-container">
+                <span class="skill-badge"><i class="fab fa-python"></i> Python</span>
+                <span class="skill-badge"><i class="fas fa-database"></i> RDBMS</span>
+                <span class="skill-badge"><i class="fas fa-shield-hog"></i> Cybersecurity</span>
+                <span class="skill-badge"><i class="fas fa-tasks"></i> Product Management</span>
+                <span class="skill-badge"><i class="fas fa-comments"></i> Communication</span>
+                <span class="skill-badge"><i class="fas fa-lightbulb"></i> Problem Solving</span>
+                <span class="skill-badge"><i class="fas fa-users"></i> Team Collaboration</span>
+                <span class="skill-badge"><i class="fas fa-clock"></i> Time Management</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 5: PROJECT ========= -->
+    <div id="projects" class="section-row">
+        <div class="glass-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-microchip"></i> Featured Project</h2>
+            <div class="project-card">
+                <div class="project-icon"><i class="fas fa-tint"></i></div>
+                <div>
+                    <h3>IoT Soil Moisture & Automated Irrigation System</h3>
+                    <p>Sensor-based system monitors soil moisture using microcontroller, triggers water pump automatically when moisture drops below threshold — optimizing water usage for agriculture with real-time data processing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 6: ACHIEVEMENTS / CERTIFICATIONS ========= -->
+    <div id="achievements" class="section-row">
+        <div class="glass-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-award"></i> Certifications</h2>
+            <div class="achievement-list">
+                <div><i class="fab fa-google"></i> Google Cybersecurity Foundation</div>
+                <div><i class="fab fa-google"></i> Google Security Risk Management</div>
+                <div><i class="fas fa-certificate"></i> Great Learning - C Programming</div>
+                <div><i class="fas fa-certificate"></i> Great Learning - Product Management</div>
+                <div><i class="fas fa-laptop-code"></i> Tekie Python Bootcamp</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ROW 7: CONTACT ========= -->
+    <div id="contact" class="section-row">
+        <div class="glass-card contact-card reveal-card" data-reveal>
+            <h2 class="section-title"><i class="fas fa-address-card"></i> Connect with Me</h2>
+            <div class="contact-info">
+                <p><i class="fas fa-phone-alt"></i> +91 9080926533</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:iammrsnaps@gmail.com">iammrsnaps@gmail.com</a></p>
+                <p><i class="fab fa-linkedin"></i> <span id="linkedinProfileLink" style="cursor:pointer;">linkedin.com/in/shaurya-tiwari</span></p>
+            </div>
+            <div class="footer-note">📍 Yelahanka, Bengaluru | Languages: English, Hindi, Tamil, Kannada</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ===== FIXED: PROPER SCROLL OFFSET TO PREVENT SECTION HIDING UNDER NAV BAR =====
+        const NAV_OFFSET = 100; // pixels to offset from top (accounts for sticky nav bar + some padding)
+        
+        // ===== ACTIVE NAVIGATION HIGHLIGHT + SCROLL SPY =====
+        const sections = ['home', 'about', 'experience', 'skills', 'projects', 'achievements', 'contact'];
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        function updateActiveNav() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + NAV_OFFSET + 20;
+            
+            for (let section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const offsetTop = element.offsetTop;
+                    const offsetBottom = offsetTop + element.offsetHeight;
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+                        currentSection = section;
+                        break;
+                    }
+                }
+            }
+            
+            navItems.forEach(item => {
+                const sectionId = item.getAttribute('data-section');
+                if (sectionId === currentSection) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        
+        // IMPROVED SCROLL FUNCTION - accounts for sticky navigation bar
+        function scrollToSection(sectionId) {
+            const targetElement = document.getElementById(sectionId);
+            if (targetElement) {
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - NAV_OFFSET;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update active state after scrolling
+                setTimeout(() => {
+                    navItems.forEach(item => {
+                        if (item.getAttribute('data-section') === sectionId) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+                }, 100);
+            }
+        }
+        
+        // Add click listeners to all nav items
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('data-section');
+                if (targetId) {
+                    e.preventDefault();
+                    scrollToSection(targetId);
+                }
+            });
+        });
+        
+        // Also handle the "Connect" button inside profile
+        const connectBtn = document.querySelector('.btn-outline[data-section="contact"]');
+        if(connectBtn) {
+            connectBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollToSection('contact');
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+        
+        // ===== RESUME DOWNLOAD (local file: ./resume/resume-1.pdf) =====
+        const resumeStatus = document.getElementById('resumeStatus');
+        const downloadBtn = document.getElementById('downloadResumeBtn');
+        
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '25px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.background = isError ? 'rgba(80, 50, 50, 0.9)' : 'rgba(30,30,30,0.9)';
+            toast.style.backdropFilter = 'blur(20px)';
+            toast.style.borderRadius = '60px';
+            toast.style.padding = '10px 22px';
+            toast.style.border = '1px solid #cfc5a8';
+            toast.style.fontSize = '0.85rem';
+            toast.style.zIndex = '999';
+            toast.style.color = '#eee';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        function checkLocalResume() {
+            fetch('./resume/resume-1.pdf', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        resumeStatus.innerHTML = '📄 Resume ready (resume-1.pdf)';
+                        resumeStatus.style.color = '#8bc34a';
+                    } else {
+                        resumeStatus.innerHTML = '📄 Click Download to get your resume';
+                        resumeStatus.style.color = '#a8966a';
+                    }
+                })
+                .catch(() => {
+                    resumeStatus.innerHTML = '📄 Click Download to get your resume';
+                    resumeStatus.style.color = '#a8966a';
+                });
+        }
+        checkLocalResume();
+        
+        if(downloadBtn) {
+            downloadBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('./resume/resume-1.pdf');
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'Shaurya_Tiwari_Resume.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                        showToast('✅ Resume downloaded successfully!');
+                        return;
+                    } else {
+                        throw new Error('File not accessible');
+                    }
+                } catch(e) {
+                    // Generate detailed resume
+                    const resumeData = `SHAURYA TIWARI - RESUME
+=========================================
+BCA Student | Cybersecurity Enthusiast
+
+📞 Phone: +91 9080926533
+✉ Email: iammrsnaps@gmail.com
+📍 Location: Yelahanka, Bengaluru - 560064
+
+═══════════════════════════════════════
+EDUCATION
+═══════════════════════════════════════
+• Bachelor of Computer Applications (BCA)
+  Presidency University, Bengaluru | 2023 – 2026
+
+• Higher Secondary School (Science Stream)
+  Harsha International Public School | Completed: May 2023
+
+═══════════════════════════════════════
+EXPERIENCE
+═══════════════════════════════════════
+• Internship Program Associate | Plentra Technologies (2024)
+  - Supported onboarding of 200+ interns
+
+═══════════════════════════════════════
+CERTIFICATIONS
+═══════════════════════════════════════
+✓ Google Cybersecurity Foundation
+✓ Google Security Risk Management
+✓ Great Learning - C Programming
+✓ Great Learning - Product Management
+✓ Tekie Python Bootcamp
+
+═══════════════════════════════════════
+SKILLS
+═══════════════════════════════════════
+Python, RDBMS, Cybersecurity, Product Management
+Communication, Problem Solving, Team Collaboration
+
+═══════════════════════════════════════
+PROJECT
+═══════════════════════════════════════
+IoT-Based Soil Moisture Monitoring & Automated Irrigation System
+
+═══════════════════════════════════════
+LANGUAGES: English, Hindi, Tamil, Kannada
+═══════════════════════════════════════`;
+                    const blob = new Blob([resumeData], {type: 'application/pdf'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Shaurya_Tiwari_Resume.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast('📄 Generated resume (place resume-1.pdf in ./resume/)', true);
+                }
+            });
+        }
+        
+        // LinkedIn handler
+        const linkedinSpan = document.getElementById('linkedinProfileLink');
+        if(linkedinSpan) {
+            linkedinSpan.addEventListener('click', () => {
+                window.open('https://www.linkedin.com/in/shaurya-tiwari-336335306/', '_blank');
+            });
+        }
+        
+        // Sequential reveal observer
+        const revealElements = document.querySelectorAll('[data-reveal]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2, rootMargin: "0px 0px -30px 0px" });
+        
+        revealElements.forEach(el => observer.observe(el));
+        
+        window.addEventListener('load', () => {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if(rect.top < window.innerHeight - 100) {
+                    el.classList.add('revealed');
+                    observer.unobserve(el);
+                }
+            });
+        });
+        
+        // Blur bar parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const bars = document.querySelectorAll('.blur-bar-row');
+            bars.forEach((bar, idx) => {
+                let opacity = 0.25 + (Math.sin(scrolled * 0.002 + idx) * 0.08);
+                bar.style.opacity = Math.min(0.45, Math.max(0.15, opacity));
+            });
+        });
+    })();
+</script>
+</body>
+</html>
